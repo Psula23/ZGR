@@ -258,13 +258,13 @@ samtools view HM008.sorted.bam | head  - podgląd
 
 
 ```
-# Analiza jakości mapowania (na serwerze)
+# Analiza jakości mapowania 
 
->przygotowane wcześniej środowisko o nazwie quali 
+> przygotowane wcześniej środowisko o nazwie quali 
 
 > ewentualne problemu z aktywacją środowiska:
 
-> command conda not foud
+> Command conda not foud
 ```
 export PATH="/home/users/pponiat/anaconda3/bin:$PATH"
 
