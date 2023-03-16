@@ -284,3 +284,43 @@ conda install -c bioconda qualimap
 qualimap bamqc -bam HM008.sorted.bam -c -outdir HM008 --java-mem-size=4G - analiza jakości pojedynczego pliku .bam 
 
 ```
+
+
+# Picard
+
+```
+java -jar picard.jar MarkDuplicates       I=HM008.sorted.bam       O=marked_duplicates.bam       M=marked_dup_metrics.txt
+
+~/anaconda3/pkgs/picard-2.27.4-hdfd78af_0/share/picard-2.27.4-0
+
+java -jar ~/anaconda3/pkgs/picard-2.27.4-hdfd78af_0/share/picard-2.27.4-0/picard.jar MarkDuplicates       I=HM019.sorted.bam       O=marked_duplicates_19.bam       M=marked_dup_metrics_19.txt
+
+```
+
+# CNVNATOR
+
+```
+:/media/pgr/Pulp/mapowanie_1$ cnvnator -root out.root -tree marked_duplicates.bam -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1
+```
+
+```
+cnvnator -root file.root -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1 -his 100 -d dir_with_genome_fa
+
+dir_with_genome_fa -folder z oddzielnymi plikami chromosomów 
+
+```
+
+```
+cnvnator -root out1.root -tree marked_duplicates_19.bam -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1
+
+cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -his 100 -fasta NC_053042.1.fna
+
+cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -stat 100 -fasta NC_053042.1.fna
+cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -partition 100 -fasta NC_053042.1.fna
+cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -call 100 -fasta NC_053042.1.fna
+cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -view 100 -fasta NC_053042.1.fna
+
+>NC_053042.1:1-10000
+
+```
+
