@@ -285,7 +285,6 @@ qualimap bamqc -bam HM008.sorted.bam -c -outdir HM008 --java-mem-size=4G - anali
 
 ```
 
-
 # Picard
 
 ```
@@ -295,6 +294,26 @@ java -jar picard.jar MarkDuplicates       I=HM008.sorted.bam       O=marked_dupl
 
 java -jar ~/anaconda3/pkgs/picard-2.27.4-hdfd78af_0/share/picard-2.27.4-0/picard.jar MarkDuplicates       I=HM019.sorted.bam       O=marked_duplicates_19.bam       M=marked_dup_metrics_19.txt
 
+ module show picard - przydatna komenda, pokazuje ścieżke do narzędzia na serwerze
+```
+
+> w pliku skrypt.sl:
+```
+module load picard
+bash analizaj.sh
+```
+
+> w pliku  analizaj.sh:
+```
+cat linie3.txt | while read line
+
+        do
+
+         java -jar /opt/exp_soft/local/generic/picard/2.9.2/picard.jar MarkDuplicates I=/home/users/pponiat/grant_620/project_data/paulina/27636148/${line}.bam O=marked_duplicates_${line}.bam M=marked_dup_metrics_${line}.
+         
+        done
+         
+
 ```
 
 # CNVNATOR
@@ -303,12 +322,22 @@ java -jar ~/anaconda3/pkgs/picard-2.27.4-hdfd78af_0/share/picard-2.27.4-0/picard
 :/media/pgr/Pulp/mapowanie_1$ cnvnator -root out.root -tree marked_duplicates.bam -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1
 ```
 
+dir_with_genome_fa -folder z poszczególnymi chromosomami 
 ```
 cnvnator -root file.root -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1 -his 100 -d dir_with_genome_fa
 
-dir_with_genome_fa -folder z oddzielnymi plikami chromosomów 
+cnvnator -root out.root -chrom NC_053042.1 -his 1000 -fasta NC_053042.1.fna
+cnvnator -root out.root -chrom NC_053042.1 -stat 1000
 
+cnvnator -root out.root -chrom NC_053042.1 -partition 1000 [-ngc]
+
+powyzsze potrzebne 
+
+cnvnator -root file.root -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1 -stat 100 
+cnvnator -root out.root -chrom NC_053042.1 -stat 1000
 ```
+
+
 
 ```
 cnvnator -root out1.root -tree marked_duplicates_19.bam -chrom NC_053042.1 NC_053043.1 NC_053044.1 NC_053045.1 NC_053046.1 NC_053047.1 NC_053048.1 NC_053049.1
@@ -320,7 +349,8 @@ cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -partition 100 -fast
 cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -call 100 -fasta NC_053042.1.fna
 cnvnator -root out1.root -genome ref.fna -chrom NC_053042.1 -view 100 -fasta NC_053042.1.fna
 
->NC_053042.1:1-10000
-
 ```
+
+# CNVpytor
+
 
